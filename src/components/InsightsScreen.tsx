@@ -28,6 +28,7 @@ import { CurrencyIcon } from './CurrencyIcon';
 import { TopMoversModal } from './TopMoversModal';
 import { TradingSignalsModal, TradingSignalItem } from './TradingSignalsModal';
 import { NewsModal, FullNewsItem } from './NewsModal';
+import { EconomicCalendarModal, CalendarEventItem } from './EconomicCalendarModal';
 
 const { width } = Dimensions.get('window');
 
@@ -232,6 +233,182 @@ const SIGNALS_DATA: SignalItem[] = [
 ];
 
 const EVENTS_DATA: EventItem[] = [
+  {
+    id: 'cal-hu-12m',
+    title: '12-Month DTB Auction',
+    country: 'HU',
+    countryName: 'Hungary',
+    flagType: 'HU',
+    impactBars: 1,
+    timing: '15:00 – In 26 minutes',
+    timeUtc: '15:00 UTC',
+    day: 'today',
+    actual: 'Pending',
+    forecast: '5.85%',
+    previous: '5.92%',
+    description: 'Government debt auction for 12-month discounted treasury bills issued by the Hungarian Debt Management Agency.',
+    relatedMarkets: ['EUR/HUF', 'USD/HUF'],
+  },
+  {
+    id: 'cal-hu-15y',
+    title: '15-Year Bond Auction',
+    country: 'HU',
+    countryName: 'Hungary',
+    flagType: 'HU',
+    impactBars: 1,
+    timing: '15:00 – In 26 minutes',
+    timeUtc: '15:00 UTC',
+    day: 'today',
+    actual: 'Pending',
+    forecast: '6.45%',
+    previous: '6.50%',
+    description: 'Long-term sovereign bond auction providing liquidity benchmarks for institutional fixed-income participants.',
+    relatedMarkets: ['EUR/HUF'],
+  },
+  {
+    id: 'cal-es-cc',
+    title: 'Consumer Confidence',
+    country: 'ES',
+    countryName: 'Spain',
+    flagType: 'ES',
+    impactBars: 2,
+    timing: '15:30 – In 56 minutes',
+    timeUtc: '15:30 UTC',
+    day: 'today',
+    actual: 'Pending',
+    forecast: '86.4',
+    previous: '85.2',
+    description: 'Survey gauging financial security, employment sentiment, and future spending propensity among Spanish consumers.',
+    relatedMarkets: ['EUR/USD', 'EUR/GBP', 'DE30'],
+  },
+  {
+    id: 'cal-uk-opt',
+    title: 'CBI Business Optimism Index',
+    country: 'UK',
+    countryName: 'United Kingdom',
+    flagType: 'UK',
+    impactBars: 2,
+    timing: '15:30 – In 56 minutes',
+    timeUtc: '15:30 UTC',
+    day: 'today',
+    actual: 'Pending',
+    forecast: '-8',
+    previous: '-12',
+    description: 'Confederation of British Industry quarterly sentiment survey reflecting managerial business expectations across UK manufacturers.',
+    relatedMarkets: ['GBP/USD', 'EUR/GBP', 'UK100'],
+  },
+  {
+    id: 'cal-uk-trends',
+    title: 'CBI Industrial Trends Orders',
+    country: 'UK',
+    countryName: 'United Kingdom',
+    flagType: 'UK',
+    impactBars: 2,
+    timing: '15:30 – In 56 minutes',
+    timeUtc: '15:30 UTC',
+    day: 'today',
+    actual: 'Pending',
+    forecast: '-18',
+    previous: '-21',
+    description: 'Tracks order book volume health relative to seasonal normals, serving as a leading gauge for UK factory output.',
+    relatedMarkets: ['GBP/USD', 'GBP/JPY'],
+  },
+  {
+    id: 'cal-uk-bailey',
+    title: 'BoE Gov Bailey Speech',
+    country: 'UK',
+    countryName: 'United Kingdom',
+    flagType: 'UK',
+    impactBars: 2,
+    timing: '16:20 – In 1 hour',
+    timeUtc: '16:20 UTC',
+    day: 'today',
+    actual: 'Live',
+    forecast: 'Neutral',
+    previous: 'Hawkish',
+    description: 'Bank of England Governor Andrew Bailey delivers keynote address outlining domestic inflation trajectory and policy rate considerations.',
+    relatedMarkets: ['GBP/USD', 'EUR/GBP', 'GBP/JPY'],
+  },
+  {
+    id: 'cal-tr-tcmb',
+    title: 'TCMB Interest Rate Decision',
+    country: 'TR',
+    countryName: 'Turkey',
+    flagType: 'TR',
+    impactBars: 2,
+    timing: '16:30 – In 1 hour',
+    timeUtc: '16:30 UTC',
+    day: 'today',
+    actual: '50.00%',
+    forecast: '50.00%',
+    previous: '50.00%',
+    description: 'Central Bank of the Republic of Turkey policy rate announcement setting standard one-week repo benchmark rates.',
+    relatedMarkets: ['USD/TRY', 'EUR/TRY'],
+  },
+  {
+    id: 'cal-ca-cfib',
+    title: 'CFIB Business Barometer',
+    country: 'CA',
+    countryName: 'Canada',
+    flagType: 'CA',
+    impactBars: 1,
+    timing: '16:30 – In 1 hour',
+    timeUtc: '16:30 UTC',
+    day: 'today',
+    actual: 'Pending',
+    forecast: '54.5',
+    previous: '53.8',
+    description: 'Canadian Federation of Independent Business survey monitoring small and medium enterprise expectations for hiring and capex.',
+    relatedMarkets: ['USD/CAD', 'CAD/JPY'],
+  },
+  {
+    id: 'cal-tr-lending',
+    title: 'Overnight Lending Rate',
+    country: 'TR',
+    countryName: 'Turkey',
+    flagType: 'TR',
+    impactBars: 1,
+    timing: '16:30 – In 1 hour',
+    timeUtc: '16:30 UTC',
+    day: 'today',
+    actual: '53.00%',
+    forecast: '53.00%',
+    previous: '53.00%',
+    description: 'Upper boundary of the Turkish Central Bank interest rate corridor for overnight emergency institutional credit.',
+    relatedMarkets: ['USD/TRY'],
+  },
+  {
+    id: 'cal-tr-borrowing',
+    title: 'Overnight Borrowing Rate',
+    country: 'TR',
+    countryName: 'Turkey',
+    flagType: 'TR',
+    impactBars: 1,
+    timing: '16:30 – In 1 hour',
+    timeUtc: '16:30 UTC',
+    day: 'today',
+    actual: '47.00%',
+    forecast: '47.00%',
+    previous: '47.00%',
+    description: 'Lower boundary of the interest rate corridor setting the overnight deposit facility return rate.',
+    relatedMarkets: ['USD/TRY'],
+  },
+  {
+    id: 'cal-tr-fxres',
+    title: 'Foreign Exchange Reserves',
+    country: 'TR',
+    countryName: 'Turkey',
+    flagType: 'TR',
+    impactBars: 1,
+    timing: '17:00 – In 2 hours',
+    timeUtc: '17:00 UTC',
+    day: 'today',
+    actual: 'Pending',
+    forecast: '$154.2B',
+    previous: '$152.8B',
+    description: 'Weekly gross foreign currency holdings and bullion held by the central bank to maintain lira external liquidity.',
+    relatedMarkets: ['USD/TRY'],
+  },
   {
     id: 'event-fomc',
     title: 'Fed Interest Rate Decision',
@@ -587,6 +764,26 @@ export const InsightsScreen: React.FC<InsightsScreenProps> = ({ onSelectInstrume
     setSelectedSignal(signalItem);
   };
 
+  const handleOpenEventDetail = (calEvt: CalendarEventItem) => {
+    const eventItem: EventItem = {
+      id: calEvt.id,
+      title: calEvt.title,
+      country: calEvt.country,
+      countryName: calEvt.countryName,
+      flagType: calEvt.flagType,
+      impactBars: calEvt.impactBars,
+      timing: calEvt.timing,
+      timeUtc: calEvt.timing.split(' – ')[0] || '12:00 UTC',
+      day: 'today',
+      actual: calEvt.actual || 'Pending',
+      forecast: calEvt.forecast || '5.50%',
+      previous: calEvt.previous || '5.50%',
+      description: calEvt.description || calEvt.title,
+      relatedMarkets: calEvt.relatedMarkets || ['EUR/USD', 'USD/JPY'],
+    };
+    setSelectedEvent(eventItem);
+  };
+
   // Quick trade feedback
   const [tradeExecutedText, setTradeExecutedText] = useState<string | null>(null);
 
@@ -731,6 +928,39 @@ export const InsightsScreen: React.FC<InsightsScreenProps> = ({ onSelectInstrume
             <Circle cx="11" cy="12" r="5" fill="#FFFFFF" />
             <Circle cx="12.2" cy="12" r="4.2" fill="#E30A17" />
             <Path d="M14.5 12 L15.2 13.5 L13.8 12.6 L15.2 12.6 L13.8 13.5 Z" fill="#FFFFFF" />
+          </Svg>
+        );
+      case 'HU':
+        return (
+          <Svg width={size} height={size} viewBox="0 0 24 24">
+            <Defs>
+              <ClipPath id={`clip-hu-${size}`}>
+                <Circle cx="12" cy="12" r="11" />
+              </ClipPath>
+            </Defs>
+            <G clipPath={`url(#clip-hu-${size})`}>
+              <Rect x="0" y="0" width="24" height="8" fill="#CE2939" />
+              <Rect x="0" y="8" width="24" height="8" fill="#FFFFFF" />
+              <Rect x="0" y="16" width="24" height="8" fill="#477050" />
+            </G>
+            <Circle cx="12" cy="12" r="11.5" stroke="#E5E7EB" strokeWidth="1" fill="none" />
+          </Svg>
+        );
+      case 'ES':
+        return (
+          <Svg width={size} height={size} viewBox="0 0 24 24">
+            <Defs>
+              <ClipPath id={`clip-es-${size}`}>
+                <Circle cx="12" cy="12" r="11" />
+              </ClipPath>
+            </Defs>
+            <G clipPath={`url(#clip-es-${size})`}>
+              <Rect x="0" y="0" width="24" height="6" fill="#AA151B" />
+              <Rect x="0" y="6" width="24" height="12" fill="#F1BF00" />
+              <Rect x="0" y="18" width="24" height="6" fill="#AA151B" />
+              <Circle cx="7.5" cy="12" r="2.2" fill="#AA151B" opacity={0.7} />
+            </G>
+            <Circle cx="12" cy="12" r="11.5" stroke="#E5E7EB" strokeWidth="1" fill="none" />
           </Svg>
         );
       case 'PL':
@@ -1394,109 +1624,13 @@ export const InsightsScreen: React.FC<InsightsScreenProps> = ({ onSelectInstrume
       </Modal>
 
       {/* ========================================================= */}
-      {/* 3B. ALL UPCOMING EVENTS FULL MODAL (ECONOMIC CALENDAR)     */}
+      {/* 3B. ECONOMIC CALENDAR FULL MODAL (1:1 with Screenshot)     */}
       {/* ========================================================= */}
-      <Modal
+      <EconomicCalendarModal
         visible={showAllEventsModal}
-        animationType="slide"
-        presentationStyle="pageSheet"
-        onRequestClose={() => setShowAllEventsModal(false)}
-      >
-        <SafeAreaView style={styles.modalFullContainer}>
-          {/* Top Bar with Close button and title */}
-          <View style={styles.modalTopBar}>
-            <TouchableOpacity
-              style={styles.modalBackIconBtn}
-              onPress={() => setShowAllEventsModal(false)}
-              hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-            >
-              <Ionicons name="close" size={24} color="#111624" />
-            </TouchableOpacity>
-            <View style={{ alignItems: 'center' }}>
-              <Text style={styles.modalTopBarCategory}>Economic Calendar</Text>
-              <Text style={styles.calendarSubtitle}>Upcoming Global Events ({filteredEvents.length})</Text>
-            </View>
-            <View style={{ width: 36 }} />
-          </View>
-
-          {/* Filter Pills Bar */}
-          <View style={styles.filterBarContainer}>
-            <ScrollView
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              contentContainerStyle={styles.filterPillScrollContent}
-            >
-              {[
-                { key: 'ALL', label: 'All Events' },
-                { key: 'HIGH', label: '🔥 High Impact' },
-                { key: 'TODAY', label: 'Today' },
-                { key: 'TOMORROW', label: 'Tomorrow' },
-                { key: 'THIS_WEEK', label: 'This Week' },
-              ].map(f => (
-                <TouchableOpacity
-                  key={f.key}
-                  style={[
-                    styles.filterPill,
-                    eventsFilter === f.key && styles.filterPillActive,
-                  ]}
-                  onPress={() => setEventsFilter(f.key as any)}
-                  activeOpacity={0.75}
-                >
-                  <Text
-                    style={[
-                      styles.filterPillText,
-                      eventsFilter === f.key && styles.filterPillTextActive,
-                    ]}
-                  >
-                    {f.label}
-                  </Text>
-                </TouchableOpacity>
-              ))}
-            </ScrollView>
-          </View>
-
-          {/* Scrollable Event Cards List */}
-          <ScrollView style={styles.modalScrollBody} showsVerticalScrollIndicator={false}>
-            <View style={styles.allEventsListCard}>
-              {filteredEvents.map((evt, idx) => (
-                <React.Fragment key={evt.id}>
-                  <TouchableOpacity
-                    style={styles.allEventsItemRow}
-                    onPress={() => setSelectedEvent(evt)}
-                    activeOpacity={0.7}
-                  >
-                    <View style={styles.allEventsFlagWrap}>
-                      {renderCountryFlag(evt.flagType, 28)}
-                    </View>
-                    <View style={styles.eventInfoCol}>
-                      <Text style={styles.eventTitle} numberOfLines={1}>
-                        {evt.title}
-                      </Text>
-                      <View style={styles.eventMetaRow}>
-                        <Text style={styles.eventCountry}>{evt.country}</Text>
-                        <View style={styles.impactBarsRow}>
-                          <View style={[styles.bar, evt.impactBars >= 1 ? styles.barYellow : styles.barGrey]} />
-                          <View style={[styles.bar, evt.impactBars >= 2 ? styles.barYellow : styles.barGrey]} />
-                          <View style={[styles.bar, evt.impactBars >= 3 ? styles.barYellow : styles.barGrey]} />
-                        </View>
-                        <Text style={styles.eventTiming}>{evt.timing}</Text>
-                      </View>
-                      <View style={styles.eventForecastBadge}>
-                        <Text style={styles.forecastLabel}>
-                          Forecast: <Text style={{ color: '#111624', fontWeight: '700' }}>{evt.forecast}</Text>  ·  Prior: <Text style={{ color: '#6E7787' }}>{evt.previous}</Text>
-                        </Text>
-                      </View>
-                    </View>
-                    <Ionicons name="chevron-forward" size={18} color="#9CA5B3" />
-                  </TouchableOpacity>
-                  {idx < filteredEvents.length - 1 && <View style={styles.itemDivider} />}
-                </React.Fragment>
-              ))}
-            </View>
-            <View style={{ height: 60 }} />
-          </ScrollView>
-        </SafeAreaView>
-      </Modal>
+        onClose={() => setShowAllEventsModal(false)}
+        onSelectEvent={handleOpenEventDetail}
+      />
 
       {/* ========================================================= */}
       {/* 4. TOP MOVER DETAIL MODAL (QUICK TRADING DRAWER)           */}
