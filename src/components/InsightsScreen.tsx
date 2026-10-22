@@ -26,6 +26,7 @@ import { THEME } from '../constants/theme';
 import { useTrading } from '../context/TradingContext';
 import { CurrencyIcon } from './CurrencyIcon';
 import { TopMoversModal } from './TopMoversModal';
+import { TradingSignalsModal, TradingSignalItem } from './TradingSignalsModal';
 
 const { width } = Dimensions.get('window');
 
@@ -153,6 +154,66 @@ const NEWS_DATA: NewsItem[] = [
 
 const SIGNALS_DATA: SignalItem[] = [
   {
+    id: 'sig-eth-1',
+    instrument: 'ETH',
+    title: 'Ether / Dollar: RSI oversold',
+    timeframe: '30 MIN',
+    direction: 'Intraday Bearish',
+    time: '14:23',
+    pivot: 2467,
+    tp1: 2394,
+    tp2: 2375,
+    sl: 2515,
+    preference: 'Short positions below 2,467 with targets at 2,394 & 2,375 in extension.',
+    alternative: 'Above 2,467 look for further upside with 2,520 & 2,560 as targets.',
+    commentary: 'The RSI is breaking below its neutrality area at 50. The MACD is negative and below its signal line. The configuration is negative. Further downside expected.',
+  },
+  {
+    id: 'sig-btc-1',
+    instrument: 'BTC',
+    title: 'Bitcoin / Dollar: RSI oversold',
+    timeframe: '30 MIN',
+    direction: 'Intraday Bearish',
+    time: '14:22',
+    pivot: 82820,
+    tp1: 81155,
+    tp2: 80777,
+    sl: 83500,
+    preference: 'Short positions below 82,820 with targets at 81,155 & 80,777 in extension.',
+    alternative: 'Above 82,820 look for further upside with 83,900 & 84,600 as targets.',
+    commentary: 'The downside prevails as long as 82,820 is resistance. Prices stay capped below falling moving averages.',
+  },
+  {
+    id: 'sig-eurusd-1',
+    instrument: 'EUR/USD',
+    title: 'EUR/USD: Target 1.1280',
+    timeframe: '30 MIN',
+    direction: 'Intraday Bullish',
+    time: '13:10',
+    pivot: 1.1227,
+    tp1: 1.128,
+    tp2: 1.1292,
+    sl: 1.119,
+    preference: 'Long positions above 1.1227 with targets at 1.1280 & 1.1292 in extension.',
+    alternative: 'Below 1.1227 look for further downside with 1.1180 as target.',
+    commentary: 'Bullish divergence spotted on lower timeframe candles. 1.1227 support baseline remains robust.',
+  },
+  {
+    id: 'sig-xauusd-1',
+    instrument: 'XAU/USD',
+    title: 'Gold: 4064 expected',
+    timeframe: '30 MIN',
+    direction: 'Intraday Bearish',
+    time: '13:10',
+    pivot: 4142,
+    tp1: 4064,
+    tp2: 4020,
+    sl: 4175,
+    preference: 'Short positions below 4,142 with targets at 4,064 & 4,020 in extension.',
+    alternative: 'Above 4,142 look for recovery with 4,180 & 4,210 as alternative targets.',
+    commentary: 'Gold contracts are cooling off from cycle highs, probing immediate key test levels at 4,064.',
+  },
+  {
     id: 'sig-1',
     instrument: 'DE30 (DAX 40)',
     title: 'DE30: key resistance at 25740',
@@ -165,23 +226,8 @@ const SIGNALS_DATA: SignalItem[] = [
     sl: 25850,
     preference: 'Short positions below 25,740 with targets at 25,420 & 25,220 in extension.',
     alternative: 'Above 25,740 look for further upside with 25,940 & 26,100 as targets.',
-    commentary: 'The RSI is breaking below its neutrality area at 50. The MACD is negative and below its signal line. The configuration is negative. Further downward momentum expected toward support targets.'
+    commentary: 'The RSI is breaking below its neutrality area at 50. The MACD is negative and below its signal line. The configuration is negative. Further downward momentum expected toward support targets.',
   },
-  {
-    id: 'sig-2',
-    instrument: 'FR40 (CAC 40)',
-    title: 'FR40: key resistance at 7980',
-    timeframe: '30 MIN',
-    direction: 'Intraday Bearish',
-    time: '11:48',
-    pivot: 7980,
-    tp1: 7890,
-    tp2: 7830,
-    sl: 8040,
-    preference: 'Short positions below 7,980 with price targets at 7,890 & 7,830 in extension.',
-    alternative: 'Above 7,980 look for recovery with 8,050 & 8,120 as alternative targets.',
-    commentary: 'Prices remain capped below the falling 20-period and 50-period moving averages. Resistance at 7,980 is reinforced by Fibonacci retracement levels.'
-  }
 ];
 
 const EVENTS_DATA: EventItem[] = [
@@ -503,6 +549,26 @@ export const InsightsScreen: React.FC<InsightsScreenProps> = ({ onSelectInstrume
   const [selectedEvent, setSelectedEvent] = useState<EventItem | null>(null);
   const [selectedMover, setSelectedMover] = useState<MoverItem | null>(null);
   const [showTopMoversModal, setShowTopMoversModal] = useState(false);
+  const [showTradingSignalsModal, setShowTradingSignalsModal] = useState(false);
+
+  const handleOpenSignalDetail = (sig: TradingSignalItem) => {
+    const signalItem: SignalItem = {
+      id: sig.id,
+      instrument: sig.instrument,
+      title: sig.headline,
+      timeframe: sig.timeframe || '30 MIN',
+      direction: sig.isUp ? 'Intraday Bullish' : 'Intraday Bearish',
+      time: sig.time,
+      pivot: sig.pivot || 100,
+      tp1: sig.tp1 || 90,
+      tp2: sig.tp2 || 85,
+      sl: sig.sl || 105,
+      preference: sig.preference || sig.description,
+      alternative: sig.alternative || 'Above pivot look for further upside.',
+      commentary: sig.commentary || sig.description,
+    };
+    setSelectedSignal(signalItem);
+  };
 
   // Quick trade feedback
   const [tradeExecutedText, setTradeExecutedText] = useState<string | null>(null);
@@ -914,7 +980,7 @@ export const InsightsScreen: React.FC<InsightsScreenProps> = ({ onSelectInstrume
       {/* 2. TRADING SIGNALS SECTION */}
       <View style={styles.sectionHeaderRow}>
         <Text style={styles.sectionHeaderTitle}>TRADING SIGNALS</Text>
-        <TouchableOpacity onPress={() => setSelectedSignal(SIGNALS_DATA[0])}>
+        <TouchableOpacity onPress={() => setShowTradingSignalsModal(true)}>
           <Text style={styles.showMoreLink}>Show more</Text>
         </TouchableOpacity>
       </View>
@@ -1511,6 +1577,13 @@ export const InsightsScreen: React.FC<InsightsScreenProps> = ({ onSelectInstrume
         visible={showTopMoversModal}
         onClose={() => setShowTopMoversModal(false)}
         onSelectInstrument={onSelectInstrument}
+      />
+
+      {/* 6. TRADING SIGNALS FULL MODAL (1:1 with Screenshot) */}
+      <TradingSignalsModal
+        visible={showTradingSignalsModal}
+        onClose={() => setShowTradingSignalsModal(false)}
+        onSelectSignal={handleOpenSignalDetail}
       />
 
       <View style={{ height: 110 }} />
