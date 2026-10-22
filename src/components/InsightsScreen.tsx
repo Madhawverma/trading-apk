@@ -25,6 +25,7 @@ import Svg, {
 import { THEME } from '../constants/theme';
 import { useTrading } from '../context/TradingContext';
 import { CurrencyIcon } from './CurrencyIcon';
+import { TopMoversModal } from './TopMoversModal';
 
 const { width } = Dimensions.get('window');
 
@@ -501,6 +502,7 @@ export const InsightsScreen: React.FC<InsightsScreenProps> = ({ onSelectInstrume
   const [selectedSignal, setSelectedSignal] = useState<SignalItem | null>(null);
   const [selectedEvent, setSelectedEvent] = useState<EventItem | null>(null);
   const [selectedMover, setSelectedMover] = useState<MoverItem | null>(null);
+  const [showTopMoversModal, setShowTopMoversModal] = useState(false);
 
   // Quick trade feedback
   const [tradeExecutedText, setTradeExecutedText] = useState<string | null>(null);
@@ -879,7 +881,7 @@ export const InsightsScreen: React.FC<InsightsScreenProps> = ({ onSelectInstrume
       {/* 1. TOP MOVERS SECTION */}
       <View style={styles.sectionHeaderRow}>
         <Text style={styles.sectionHeaderTitle}>TOP MOVERS</Text>
-        <TouchableOpacity onPress={() => setSelectedMover(MOVERS_DATA[0])}>
+        <TouchableOpacity onPress={() => setShowTopMoversModal(true)}>
           <Text style={styles.showMoreLink}>Show more</Text>
         </TouchableOpacity>
       </View>
@@ -1503,6 +1505,13 @@ export const InsightsScreen: React.FC<InsightsScreenProps> = ({ onSelectInstrume
           </View>
         )}
       </Modal>
+
+      {/* 5. TOP MOVERS FULL MODAL (1:1 with Screenshot) */}
+      <TopMoversModal
+        visible={showTopMoversModal}
+        onClose={() => setShowTopMoversModal(false)}
+        onSelectInstrument={onSelectInstrument}
+      />
 
       <View style={{ height: 110 }} />
     </ScrollView>

@@ -187,6 +187,36 @@ export const renderSilverBarsSvg = (s: number) => (
   </Svg>
 );
 
+export const renderChinaFlagSvg = (s: number) => (
+  <Svg width={s} height={s} viewBox="0 0 24 24">
+    <Circle cx="12" cy="12" r="11.5" fill="#DE2910" stroke="#E5E7EB" strokeWidth="0.8" />
+    {/* Big Yellow Star */}
+    <Polygon points="6,3.5 7,6 9.5,6.2 7.5,7.7 8.2,10.2 6,8.8 3.8,10.2 4.5,7.7 2.5,6.2 5,6" fill="#FFDE00" />
+    {/* 4 Small Yellow Stars */}
+    <Circle cx="10.5" cy="4.2" r="0.7" fill="#FFDE00" />
+    <Circle cx="12" cy="6" r="0.7" fill="#FFDE00" />
+    <Circle cx="12" cy="8.2" r="0.7" fill="#FFDE00" />
+    <Circle cx="10.5" cy="10" r="0.7" fill="#FFDE00" />
+  </Svg>
+);
+
+export const renderBtcCircleSvg = (s: number) => (
+  <Svg width={s} height={s} viewBox="0 0 24 24">
+    <Circle cx="12" cy="12" r="11.5" fill="#F7931A" stroke="#E5E7EB" strokeWidth="0.8" />
+    <SvgText x="12" y="16.5" fill="#FFFFFF" fontSize="13" fontWeight="bold" textAnchor="middle">
+      ₿
+    </SvgText>
+  </Svg>
+);
+
+export const renderPlatinumBarsSvg = (s: number) => (
+  <Svg width={s} height={s} viewBox="0 0 24 24">
+    <Circle cx="12" cy="12" r="11.5" fill="#94A3B8" stroke="#64748B" strokeWidth="0.8" />
+    <Path d="M4 14.5L7 11.5H17L20 14.5L18 17.5H6L4 14.5Z" fill="#CBD5E1" stroke="#475569" strokeWidth="0.8" />
+    <Path d="M7 10L9.5 7.5H14.5L17 10L15.5 12.5H8.5L7 10Z" fill="#E2E8F0" stroke="#475569" strokeWidth="0.8" />
+  </Svg>
+);
+
 /* Helper to get flag SVG by 3-letter currency code */
 const getFlagSvg = (currency: string, s: number) => {
   switch (currency.toUpperCase()) {
@@ -212,6 +242,17 @@ const getFlagSvg = (currency: string, s: number) => {
       return renderTurkeyFlagSvg(s);
     case 'DEU':
       return renderGermanyFlagSvg(s);
+    case 'CNH':
+    case 'CNY':
+      return renderChinaFlagSvg(s);
+    case 'BTC':
+      return renderBtcCircleSvg(s);
+    case 'XAG':
+      return renderSilverBarsSvg(s);
+    case 'XAU':
+      return renderGoldBarsSvg(s);
+    case 'XPT':
+      return renderPlatinumBarsSvg(s);
     default:
       return renderUsFlagSvg(s);
   }
@@ -382,7 +423,58 @@ export const CurrencyIcon: React.FC<CurrencyIconProps> = ({ symbol, size = 26 })
     );
   }
 
-  // 4. INDICES (Exact match to screenshot USTEC with NDX center pill)
+  // 4. INDICES
+  if (clean === 'HK50') {
+    return (
+      <View style={{ width: size, height: size, alignItems: 'center', justifyContent: 'center' }}>
+        <Svg width={size} height={size} viewBox="0 0 32 32">
+          <Circle cx="16" cy="16" r="15" fill="#DE2910" stroke="#E5E7EB" strokeWidth="0.8" />
+          <Path d="M16 6 L17.5 10 L21 11 L18 13.5 L19 17 L16 14.5 L13 17 L14 13.5 L11 11 L14.5 10 Z" fill="#FFFFFF" />
+          <SvgText x="16" y="24" fill="#FFFFFF" fontSize="9" fontWeight="900" textAnchor="middle">
+            50
+          </SvgText>
+        </Svg>
+      </View>
+    );
+  }
+
+  if (clean === 'JP225' || clean === 'NIKKEI') {
+    return (
+      <View style={{ width: size, height: size, alignItems: 'center', justifyContent: 'center' }}>
+        <Svg width={size} height={size} viewBox="0 0 32 32">
+          <Circle cx="16" cy="16" r="15" fill="#FFFFFF" stroke="#E5E7EB" strokeWidth="0.8" />
+          <Circle cx="16" cy="16" r="11" fill="#BC002D" />
+          <SvgText x="16" y="19" fill="#FFFFFF" fontSize="8" fontWeight="900" textAnchor="middle">
+            225
+          </SvgText>
+        </Svg>
+      </View>
+    );
+  }
+
+  if (clean === 'STOXX50' || clean === 'EU50') {
+    return (
+      <View style={{ width: size, height: size, alignItems: 'center', justifyContent: 'center' }}>
+        <Svg width={size} height={size} viewBox="0 0 32 32">
+          <Circle cx="16" cy="16" r="15" fill="#003399" stroke="#E5E7EB" strokeWidth="0.8" />
+          <Circle cx="16" cy="5" r="1" fill="#FFCC00" />
+          <Circle cx="23" cy="8" r="1" fill="#FFCC00" />
+          <Circle cx="26" cy="14" r="1" fill="#FFCC00" />
+          <Circle cx="25" cy="20" r="1" fill="#FFCC00" />
+          <Circle cx="20" cy="25" r="1" fill="#FFCC00" />
+          <Circle cx="16" cy="27" r="1" fill="#FFCC00" />
+          <Circle cx="12" cy="25" r="1" fill="#FFCC00" />
+          <Circle cx="7" cy="20" r="1" fill="#FFCC00" />
+          <Circle cx="6" cy="14" r="1" fill="#FFCC00" />
+          <Circle cx="9" cy="8" r="1" fill="#FFCC00" />
+          <SvgText x="16" y="19" fill="#FFFFFF" fontSize="8" fontWeight="900" textAnchor="middle">
+            50
+          </SvgText>
+        </Svg>
+      </View>
+    );
+  }
+
   if (clean === 'USTEC' || clean === 'NAS100') {
     return (
       <View style={{ width: size, height: size, alignItems: 'center', justifyContent: 'center' }}>
