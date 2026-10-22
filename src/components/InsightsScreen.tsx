@@ -27,6 +27,7 @@ import { useTrading } from '../context/TradingContext';
 import { CurrencyIcon } from './CurrencyIcon';
 import { TopMoversModal } from './TopMoversModal';
 import { TradingSignalsModal, TradingSignalItem } from './TradingSignalsModal';
+import { NewsModal, FullNewsItem } from './NewsModal';
 
 const { width } = Dimensions.get('window');
 
@@ -550,6 +551,22 @@ export const InsightsScreen: React.FC<InsightsScreenProps> = ({ onSelectInstrume
   const [selectedMover, setSelectedMover] = useState<MoverItem | null>(null);
   const [showTopMoversModal, setShowTopMoversModal] = useState(false);
   const [showTradingSignalsModal, setShowTradingSignalsModal] = useState(false);
+  const [showNewsModal, setShowNewsModal] = useState(false);
+
+  const handleOpenNewsDetail = (item: FullNewsItem) => {
+    const newsItem: NewsItem = {
+      id: item.id,
+      headline: item.headline,
+      instrument: item.instrument,
+      change: item.change,
+      isUp: item.isUp,
+      time: item.time,
+      source: item.source,
+      paragraphs: item.paragraphs,
+      takeaways: item.takeaways,
+    };
+    setSelectedNews(newsItem);
+  };
 
   const handleOpenSignalDetail = (sig: TradingSignalItem) => {
     const signalItem: SignalItem = {
@@ -1052,7 +1069,7 @@ export const InsightsScreen: React.FC<InsightsScreenProps> = ({ onSelectInstrume
       {/* 4. TOP NEWS SECTION */}
       <View style={styles.sectionHeaderRow}>
         <Text style={styles.sectionHeaderTitle}>TOP NEWS</Text>
-        <TouchableOpacity onPress={() => setSelectedNews(NEWS_DATA[0])}>
+        <TouchableOpacity onPress={() => setShowNewsModal(true)}>
           <Text style={styles.showMoreLink}>Show more</Text>
         </TouchableOpacity>
       </View>
@@ -1584,6 +1601,13 @@ export const InsightsScreen: React.FC<InsightsScreenProps> = ({ onSelectInstrume
         visible={showTradingSignalsModal}
         onClose={() => setShowTradingSignalsModal(false)}
         onSelectSignal={handleOpenSignalDetail}
+      />
+
+      {/* 7. NEWS FULL MODAL (1:1 with Screenshot) */}
+      <NewsModal
+        visible={showNewsModal}
+        onClose={() => setShowNewsModal(false)}
+        onSelectNews={handleOpenNewsDetail}
       />
 
       <View style={{ height: 110 }} />
