@@ -60,25 +60,14 @@ const MainApp: React.FC = () => {
           />
         )}
 
-        {/* TRADE TAB - Exact match to screenshot 2 */}
+        {/* TRADE TAB - Exact match to TradingView terminal screenshot */}
         {currentTab === 'trade' && (
           selectedChartSymbol ? (
-            <View style={{ flex: 1 }}>
-              {/* Back button to return to Trade List */}
-              <View style={styles.chartHeaderBack}>
-                <TouchableOpacity
-                  style={styles.backBtn}
-                  onPress={() => setSelectedChartSymbol(null)}
-                >
-                  <Ionicons name="arrow-back" size={22} color="#111624" />
-                  <Text style={styles.backBtnText}>Trade List</Text>
-                </TouchableOpacity>
-              </View>
-              <TradingChart
-                symbol={selectedChartSymbol}
-                onOpenOrderModal={(type: OrderType) => handleOpenTradeModal(selectedChartSymbol, type)}
-              />
-            </View>
+            <TradingChart
+              symbol={selectedChartSymbol}
+              onOpenOrderModal={(type: OrderType) => handleOpenTradeModal(selectedChartSymbol, type)}
+              onBack={() => setSelectedChartSymbol(null)}
+            />
           ) : (
             <TradeScreen onSelectInstrument={handleSelectInstrument} />
           )
